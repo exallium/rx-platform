@@ -1,0 +1,3 @@
+rootProject.name = 'rx-platform'
+
+include 'rx-platform-jvm', 'rx-platform-js'
