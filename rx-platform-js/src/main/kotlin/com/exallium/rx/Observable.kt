@@ -6,7 +6,7 @@ actual class Observable<T> {
 
 //<editor-fold desc="Creational">
 actual fun <T> Observable.Companion.just(t: T): Observable<T> = TODO()
-actual fun <T> Observable.Companion.create(createFn: (emitter: ObservableEmitter<T>) -> (Unit)): Observable<T> = TODO()
+actual fun <T> Observable.Companion.create(onSubscribe: ObservableOnSubscribe<T>): Observable<T> = TODO()
 //</editor-fold>
 
 //<editor-fold desc="Transformative Operators">

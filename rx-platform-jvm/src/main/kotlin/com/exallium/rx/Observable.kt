@@ -7,8 +7,8 @@ actual class Observable<T>(internal val obs: io.reactivex.Observable<T>) {
 //<editor-fold desc="Creational">
 actual fun <T> Observable.Companion.just(t: T): Observable<T> = Observable(io.reactivex.Observable.just(t))
 
-actual fun <T> Observable.Companion.create(createFn: (emitter: ObservableEmitter<T>) -> (Unit)): Observable<T>
-        = Observable(io.reactivex.Observable.create { e: io.reactivex.ObservableEmitter<T> -> createFn(ObservableEmitter(e)) })
+actual fun <T> Observable.Companion.create(onSubscribe: ObservableOnSubscribe<T>): Observable<T>
+        = Observable(io.reactivex.Observable.create { e: io.reactivex.ObservableEmitter<T> -> onSubscribe(ObservableEmitter(e)) })
 //</editor-fold>
 
 //<editor-fold desc="Transformative Operators">
