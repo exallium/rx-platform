@@ -16,6 +16,6 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    expectedBy project(":")
+    expectedBy project(":rx-platform")
     testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
 }

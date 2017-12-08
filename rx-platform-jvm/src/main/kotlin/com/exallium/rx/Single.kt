@@ -1,5 +1,6 @@
 package com.exallium.rx
 
+import com.exallium.rx.disposables.Disposable
 import io.reactivex.functions.BiFunction
 
 actual class Single<T>(internal val obs: io.reactivex.Single<T>) {
@@ -20,4 +21,9 @@ actual fun <T, R, U> Single<T>.zipWith(s: Single<R>, zipFn: (T, R) -> U): Single
 //<editor-fold desc="Utilities">
 actual fun <T> Single<T>.blockingGet(): T = this.obs.blockingGet()
 actual fun <T> Single<T>.doOnSuccess(fn: (T) -> Unit): Single<T> = Single(obs.doOnSuccess(fn))
+//</editor-fold>
+
+//<editor-fold desc="Subscriptions">
+actual fun <T> Single<T>.subscribe(): Disposable = Disposable(obs.subscribe())
+actual fun <T> Single<T>.subscribe(onSuccess: (T) -> (Unit), onError: (Throwable) -> (Unit)): Disposable = Disposable(obs.subscribe(onSuccess, onError))
 //</editor-fold>

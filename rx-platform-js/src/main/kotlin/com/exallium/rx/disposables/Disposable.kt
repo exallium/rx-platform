@@ -1,5 +1,6 @@
 package com.exallium.rx.disposables
 
-actual class Disposable
-actual fun Disposable.isDisposed(): Boolean = TODO()
-actual fun Disposable.dispose() { TODO() }
+actual open class Disposable : IDisposable {
+    override fun isDisposed(): Boolean = TODO()
+    override fun dispose(): Unit = TODO()
+}

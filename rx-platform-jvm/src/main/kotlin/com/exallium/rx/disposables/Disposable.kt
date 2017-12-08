@@ -1,5 +1,6 @@
 package com.exallium.rx.disposables
 
-actual class Disposable(internal val disposable: io.reactivex.disposables.Disposable)
-actual fun Disposable.isDisposed(): Boolean = disposable.isDisposed
-actual fun Disposable.dispose() = disposable.dispose()
+actual open class Disposable(internal val disposable: io.reactivex.disposables.Disposable) : IDisposable {
+    override fun isDisposed(): Boolean = disposable.isDisposed
+    override fun dispose() = disposable.dispose()
+}

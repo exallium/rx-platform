@@ -1,5 +1,8 @@
 package com.exallium.rx.disposables
 
-expect class Disposable
-expect fun Disposable.isDisposed(): Boolean
-expect fun Disposable.dispose()
+interface IDisposable {
+    fun isDisposed(): Boolean
+    fun dispose()
+}
+
+expect open class Disposable : IDisposable

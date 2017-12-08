@@ -1,5 +1,7 @@
 package com.exallium.rx
 
+import com.exallium.rx.disposables.Disposable
+
 actual class Single<T> {
     actual companion object
 }
@@ -18,4 +20,9 @@ actual fun <T, R, U> Single<T>.zipWith(s: Single<R>, zipFn: (T, R) -> U): Single
 //<editor-fold desc="Utilities">
 actual fun <T> Single<T>.blockingGet(): T = TODO()
 actual fun <T> Single<T>.doOnSuccess(fn: (T) -> Unit): Single<T> = TODO()
+//</editor-fold>
+
+//<editor-fold desc="Subscriptions">
+actual fun <T> Single<T>.subscribe(): Disposable = TODO()
+actual fun <T> Single<T>.subscribe(onSuccess: (T) -> (Unit), onError: (Throwable) -> (Unit)): Disposable = TODO()
 //</editor-fold>
