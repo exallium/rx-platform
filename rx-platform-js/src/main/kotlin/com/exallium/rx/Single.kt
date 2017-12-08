@@ -15,6 +15,7 @@ actual fun <T> Single.Companion.fromCallable(c: Callable<T>): Single<T> = TODO()
 actual fun <T, R> Single<T>.map(fn: (T) -> R): Single<R> = TODO()
 actual fun <T, R> Single<T>.flatMap(fn: (T) -> Single<R>): Single<R> = TODO()
 actual fun <T, R, U> Single<T>.zipWith(s: Single<R>, zipFn: (T, R) -> U): Single<U> = TODO()
+actual fun <T> Single<T>.toObservable(): Observable<T> = TODO()
 //</editor-fold>
 
 //<editor-fold desc="Utilities">

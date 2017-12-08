@@ -3,7 +3,7 @@ package com.exallium.rx
 import com.exallium.rx.disposables.Disposable
 import io.reactivex.functions.BiFunction
 
-actual class Single<T>(internal val obs: io.reactivex.Single<T>) {
+actual class Single<T>(internal val wrapped: io.reactivex.Single<T>) {
     actual companion object
 }
 
@@ -13,17 +13,18 @@ actual fun <T> Single.Companion.fromCallable(c: Callable<T>): Single<T> = Single
 //</editor-fold>
 
 //<editor-fold desc="Transformative Operators">
-actual fun <T, R> Single<T>.map(fn: (T) -> R): Single<R> = Single(this.obs.map(fn))
-actual fun <T, R> Single<T>.flatMap(fn: (T) -> Single<R>): Single<R> = Single(this.obs.flatMap { fn(it).obs })
-actual fun <T, R, U> Single<T>.zipWith(s: Single<R>, zipFn: (T, R) -> U): Single<U> = Single(this.obs.zipWith<R, U>(s.obs, BiFunction(zipFn)))
+actual fun <T, R> Single<T>.map(fn: (T) -> R): Single<R> = Single(this.wrapped.map(fn))
+actual fun <T, R> Single<T>.flatMap(fn: (T) -> Single<R>): Single<R> = Single(this.wrapped.flatMap { fn(it).wrapped })
+actual fun <T, R, U> Single<T>.zipWith(s: Single<R>, zipFn: (T, R) -> U): Single<U> = Single(this.wrapped.zipWith<R, U>(s.wrapped, BiFunction(zipFn)))
+actual fun <T> Single<T>.toObservable(): Observable<T> = Observable(wrapped.toObservable())
 //</editor-fold>
 
 //<editor-fold desc="Utilities">
-actual fun <T> Single<T>.blockingGet(): T = this.obs.blockingGet()
-actual fun <T> Single<T>.doOnSuccess(fn: (T) -> Unit): Single<T> = Single(obs.doOnSuccess(fn))
+actual fun <T> Single<T>.blockingGet(): T = this.wrapped.blockingGet()
+actual fun <T> Single<T>.doOnSuccess(fn: (T) -> Unit): Single<T> = Single(wrapped.doOnSuccess(fn))
 //</editor-fold>
 
 //<editor-fold desc="Subscriptions">
-actual fun <T> Single<T>.subscribe(): Disposable = Disposable(obs.subscribe())
-actual fun <T> Single<T>.subscribe(onSuccess: (T) -> (Unit), onError: (Throwable) -> (Unit)): Disposable = Disposable(obs.subscribe(onSuccess, onError))
+actual fun <T> Single<T>.subscribe(): Disposable = Disposable(wrapped.subscribe())
+actual fun <T> Single<T>.subscribe(onSuccess: (T) -> (Unit), onError: (Throwable) -> (Unit)): Disposable = Disposable(wrapped.subscribe(onSuccess, onError))
 //</editor-fold>

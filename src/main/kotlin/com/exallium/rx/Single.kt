@@ -15,6 +15,7 @@ expect fun <T> Single.Companion.fromCallable(c: Callable<T>): Single<T>
 expect fun <T, R> Single<T>.map(fn: (T) -> R): Single<R>
 expect fun <T, R> Single<T>.flatMap(fn: (T) -> Single<R>): Single<R>
 expect fun <T, R, U> Single<T>.zipWith(s: Single<R>, zipFn: (T, R) -> U): Single<U>
+expect fun <T> Single<T>.toObservable(): Observable<T>
 //</editor-fold>
 
 //<editor-fold desc="Utilities">
